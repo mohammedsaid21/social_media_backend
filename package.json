@@ -20,9 +20,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon index.js",
-    "serve": "node dist/index.js",
-    "postinstall": "prisma generate"
+    "start": "nodemon index.js"
   },
   "keywords": [],
   "author": "",
