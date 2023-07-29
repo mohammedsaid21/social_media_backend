@@ -54,16 +54,35 @@ app.use("/posts", postRoutes);
 
 /* MONGOOSE SETUP */
 const PORT = process.env.PORT || 6001;
-mongoose
-  .connect(process.env.MONGO_URL, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .then(() => {
-    app.listen(PORT, () => console.log(`Server Port: ${PORT}`));
+// mongoose
+//   .connect(process.env.MONGO_URL, {
+//     useNewUrlParser: true,
+//     useUnifiedTopology: true,
+//   })
+//   .then(() => {
+//     app.listen(PORT, () => console.log(`Server Port: ${PORT}`));
 
-    /* ADD DATA ONE TIME */
-    // User.insertMany(users);
-    // Post.insertMany(posts);
-  })
-  .catch((error) => console.log(`${error} did not connect`));
+//     /* ADD DATA ONE TIME */
+//     // User.insertMany(users);
+//     // Post.insertMany(posts);
+//   })
+//   .catch((error) => console.log(`${error} did not connect`));
+
+mongoose.set("strictQuery", false)
+const connect = async () => {
+  try {
+    await mongoose.connect(process.env.MONGO_URL, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true
+    })
+
+    console.log('MongoDB connected')
+  } catch (error) {
+    console.log('MongoDB connected failed')
+  }
+}
+
+app.listen(PORT, () => {
+  connect()
+  console.log('server listening on PORT', PORT)
+})
